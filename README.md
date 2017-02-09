@@ -1,2 +1,1 @@
-# p4
-Práctica 4 de PCCD
+# Práctica 4 de PCCD
