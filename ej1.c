@@ -6,14 +6,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void* funcion_hilo(void*);
+void* thread_function(void *);
 char c = 'a';
 int counter = 0;
 
 int main (int argc, char* argv[]){
-    pthread_t hilo;
+    pthread_t thread;
 
-    if(pthread_create(&hilo, NULL, funcion_hilo, NULL)){
+    if(pthread_create(&thread, NULL, thread_function, NULL)){
         /*
          * int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
                           void *(*start_routine) (void *), void *arg);
@@ -42,7 +42,7 @@ int main (int argc, char* argv[]){
     return 0;
 }
 
-void* funcion_hilo (void* parameter){
+void* thread_function(void *parameter){
     do{
         printf("Pulse 'q' + <ENTER> para salir.\n");
         fscanf(stdin,"%c",&c);
