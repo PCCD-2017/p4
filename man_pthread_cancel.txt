@@ -1,0 +1,53 @@
+
+PTHREAD_CANCEL(3)	 BSD Library Functions Manual	     PTHREAD_CANCEL(3)
+
+NAME
+     pthread_cancel -- cancel execution of a thread
+
+SYNOPSIS
+     #include <pthread.h>
+
+     int
+     pthread_cancel(pthread_t thread);
+
+DESCRIPTION
+     The pthread_cancel() function requests that thread be canceled.  The tar-
+     get thread's cancelability state and type determines when the cancella-
+     tion takes effect.  When the cancellation is acted on, the cancellation
+     cleanup handlers for thread are called.  When the last cancellation
+     cleanup handler returns, the thread-specific data destructor functions
+     will be called for thread.  When the last destructor function returns,
+     thread will be terminated.
+
+     The cancellation processing in the target thread runs asynchronously with
+     respect to the calling thread returning from pthread_cancel().
+
+     A status of PTHREAD_CANCELED is made available to any threads joining
+     with the target.  The symbolic constant PTHREAD_CANCELED expands to a
+     constant expression of type (void *), whose value matches no pointer to
+     an object in memory nor the value NULL.
+
+RETURN VALUES
+     If successful, the pthread_cancel() functions will return zero.  Other-
+     wise an error number will be returned to indicate the error.
+
+ERRORS
+     The pthread_cancel() function will fail if:
+
+     [ESRCH]		No thread could be found corresponding to that speci-
+			fied by the given thread ID.
+
+SEE ALSO
+     pthread_cleanup_pop(3), pthread_cleanup_push(3), pthread_exit(3),
+     pthread_join(3), pthread_setcancelstate(3), pthread_setcanceltype(3),
+     pthread_testcancel(3)
+
+STANDARDS
+     The pthread_cancel() function conforms to ISO/IEC 9945-1:1996
+     (``POSIX.1'').
+
+AUTHORS
+     This manual page was written by David Leonard <d@openbsd.org> for the
+     OpenBSD implementation of pthread_cancel().
+
+BSD			       January 17, 1999 			   BSD
