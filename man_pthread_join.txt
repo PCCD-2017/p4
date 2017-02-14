@@ -1,49 +1,49 @@
 
-PTHREAD_JOIN(3)          BSD Library Functions Manual          PTHREAD_JOIN(3)
+PTHREAD_JOIN(3) 	 BSD Library Functions Manual	       PTHREAD_JOIN(3)
 
-NNAAMMEE
-     pptthhrreeaadd__jjooiinn -- wait for thread termination
+NAME
+     pthread_join -- wait for thread termination
 
-SSYYNNOOPPSSIISS
-     ##iinncclluuddee <<pptthhrreeaadd..hh>>
+SYNOPSIS
+     #include <pthread.h>
 
-     _i_n_t
-     pptthhrreeaadd__jjooiinn(_p_t_h_r_e_a_d___t _t_h_r_e_a_d, _v_o_i_d _*_*_v_a_l_u_e___p_t_r);
+     int
+     pthread_join(pthread_t thread, void **value_ptr);
 
-DDEESSCCRRIIPPTTIIOONN
-     The pptthhrreeaadd__jjooiinn() function suspends execution of the calling thread
-     until the target _t_h_r_e_a_d terminates unless the target _t_h_r_e_a_d has already
+DESCRIPTION
+     The pthread_join() function suspends execution of the calling thread
+     until the target thread terminates unless the target thread has already
      terminated.
 
-     On return from a successful pptthhrreeaadd__jjooiinn() call with a non-NULL _v_a_l_u_e___p_t_r
-     argument, the value passed to pptthhrreeaadd__eexxiitt() by the terminating thread is
-     stored in the location referenced by _v_a_l_u_e___p_t_r.  When a pptthhrreeaadd__jjooiinn()
+     On return from a successful pthread_join() call with a non-NULL value_ptr
+     argument, the value passed to pthread_exit() by the terminating thread is
+     stored in the location referenced by value_ptr.  When a pthread_join()
      returns successfully, the target thread has been terminated.  The results
-     of multiple simultaneous calls to pptthhrreeaadd__jjooiinn() specifying the same tar-
-     get thread are undefined.  If the thread calling pptthhrreeaadd__jjooiinn() is can-
+     of multiple simultaneous calls to pthread_join() specifying the same tar-
+     get thread are undefined.	If the thread calling pthread_join() is can-
      celled, then the target thread is not detached.
 
-RREETTUURRNN VVAALLUUEESS
-     If successful, the pptthhrreeaadd__jjooiinn() function will return zero.  Otherwise,
+RETURN VALUES
+     If successful, the pthread_join() function will return zero.  Otherwise,
      an error number will be returned to indicate the error.
 
-EERRRROORRSS
-     The pptthhrreeaadd__jjooiinn() function will fail if:
+ERRORS
+     The pthread_join() function will fail if:
 
-     [EINVAL]           The implementation has detected that the value speci-
-                        fied by _t_h_r_e_a_d does not refer to a joinable thread.
+     [EINVAL]		The implementation has detected that the value speci-
+			fied by thread does not refer to a joinable thread.
 
-     [ESRCH]            No thread could be found corresponding to that speci-
-                        fied by the given thread ID, _t_h_r_e_a_d.
+     [ESRCH]		No thread could be found corresponding to that speci-
+			fied by the given thread ID, thread.
 
-     [EDEADLK]          A deadlock was detected or the value of _t_h_r_e_a_d speci-
-                        fies the calling thread.
+     [EDEADLK]		A deadlock was detected or the value of thread speci-
+			fies the calling thread.
 
-SSEEEE AALLSSOO
+SEE ALSO
      wait(2), pthread_create(3)
 
-SSTTAANNDDAARRDDSS
-     The pptthhrreeaadd__jjooiinn() function conforms to ISO/IEC 9945-1:1996
+STANDARDS
+     The pthread_join() function conforms to ISO/IEC 9945-1:1996
      (``POSIX.1'').
 
-BSD                            January 23, 2010                            BSD
+BSD			       January 23, 2010 			   BSD

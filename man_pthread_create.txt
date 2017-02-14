@@ -1,70 +1,70 @@
 
-PTHREAD_CREATE(3)        BSD Library Functions Manual        PTHREAD_CREATE(3)
+PTHREAD_CREATE(3)	 BSD Library Functions Manual	     PTHREAD_CREATE(3)
 
-NNAAMMEE
-     pptthhrreeaadd__ccrreeaattee -- create a new thread
+NAME
+     pthread_create -- create a new thread
 
-SSYYNNOOPPSSIISS
-     ##iinncclluuddee <<pptthhrreeaadd..hh>>
+SYNOPSIS
+     #include <pthread.h>
 
-     _i_n_t
-     pptthhrreeaadd__ccrreeaattee(_p_t_h_r_e_a_d___t _*_t_h_r_e_a_d, _c_o_n_s_t _p_t_h_r_e_a_d___a_t_t_r___t _*_a_t_t_r,
-         _v_o_i_d _*_(_*_s_t_a_r_t___r_o_u_t_i_n_e_)_(_v_o_i_d _*_), _v_o_i_d _*_a_r_g);
+     int
+     pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+	 void *(*start_routine)(void *), void *arg);
 
-DDEESSCCRRIIPPTTIIOONN
-     The pptthhrreeaadd__ccrreeaattee() function is used to create a new thread, with
-     attributes specified by _a_t_t_r, within a process.  If _a_t_t_r is NULL, the
-     default attributes are used.  If the attributes specified by _a_t_t_r are
-     modified later, the thread's attributes are not affected.  Upon success-
-     ful completion pptthhrreeaadd__ccrreeaattee() will store the ID of the created thread
-     in the location specified by _t_h_r_e_a_d.
+DESCRIPTION
+     The pthread_create() function is used to create a new thread, with
+     attributes specified by attr, within a process.  If attr is NULL, the
+     default attributes are used.  If the attributes specified by attr are
+     modified later, the thread's attributes are not affected.	Upon success-
+     ful completion pthread_create() will store the ID of the created thread
+     in the location specified by thread.
 
-     The thread is created executing _s_t_a_r_t___r_o_u_t_i_n_e with _a_r_g as its sole argu-
-     ment.  If the _s_t_a_r_t___r_o_u_t_i_n_e returns, the effect is as if there was an
-     implicit call to pptthhrreeaadd__eexxiitt() using the return value of _s_t_a_r_t___r_o_u_t_i_n_e
-     as the exit status.  Note that the thread in which mmaaiinn() was originally
-     invoked differs from this.  When it returns from mmaaiinn(), the effect is as
-     if there was an implicit call to eexxiitt() using the return value of mmaaiinn()
+     The thread is created executing start_routine with arg as its sole argu-
+     ment.  If the start_routine returns, the effect is as if there was an
+     implicit call to pthread_exit() using the return value of start_routine
+     as the exit status.  Note that the thread in which main() was originally
+     invoked differs from this.  When it returns from main(), the effect is as
+     if there was an implicit call to exit() using the return value of main()
      as the exit status.
 
      Upon thread exit the storage for the thread must be reclaimed by another
-     thread via a call to pptthhrreeaadd__jjooiinn().  Alternatively, pptthhrreeaadd__ddeettaacchh() may
+     thread via a call to pthread_join().  Alternatively, pthread_detach() may
      be called on the thread to indicate that the system may automatically
-     reclaim the thread storage upon exit.  The pptthhrreeaadd__aattttrr__sseettddeettaacchhssttaattee()
-     function may be used on the _a_t_t_r argument passed to pptthhrreeaadd__ccrreeaattee() in
-     order to achieve the same effect as a call to pptthhrreeaadd__ddeettaacchh() on the
+     reclaim the thread storage upon exit.  The pthread_attr_setdetachstate()
+     function may be used on the attr argument passed to pthread_create() in
+     order to achieve the same effect as a call to pthread_detach() on the
      newly created thread.
 
      The signal state of the new thread is initialized as:
 
-           ++oo   The signal mask is inherited from the creating thread.
+	   o   The signal mask is inherited from the creating thread.
 
-           ++oo   The set of signals pending for the new thread is empty.
+	   o   The set of signals pending for the new thread is empty.
 
-RREETTUURRNN VVAALLUUEESS
-     If successful, the pptthhrreeaadd__ccrreeaattee() function will return zero.  Otherwise
+RETURN VALUES
+     If successful, the pthread_create() function will return zero.  Otherwise
      an error number will be returned to indicate the error.
 
-EERRRROORRSS
-     The pptthhrreeaadd__ccrreeaattee() function will fail if:
+ERRORS
+     The pthread_create() function will fail if:
 
-     [EAGAIN]           The system lacked the necessary resources to create
-                        another thread, or the system-imposed limit on the
-                        total number of threads in a process
-                        [PTHREAD_THREADS_MAX] would be exceeded.
+     [EAGAIN]		The system lacked the necessary resources to create
+			another thread, or the system-imposed limit on the
+			total number of threads in a process
+			[PTHREAD_THREADS_MAX] would be exceeded.
 
-     [EPERM]            The caller does not have appropriate permission to set
-                        the required scheduling parameters or scheduling pol-
-                        icy.
+     [EPERM]		The caller does not have appropriate permission to set
+			the required scheduling parameters or scheduling pol-
+			icy.
 
-     [EINVAL]           The value specified by _a_t_t_r is invalid.
+     [EINVAL]		The value specified by attr is invalid.
 
-SSEEEE AALLSSOO
+SEE ALSO
      fork(2), pthread_attr(3), pthread_cancel(3), pthread_cleanup_pop(3),
      pthread_cleanup_push(3), pthread_exit(3), pthread_join(3)
 
-SSTTAANNDDAARRDDSS
-     The pptthhrreeaadd__ccrreeaattee() function conforms to ISO/IEC 9945-1:1996
+STANDARDS
+     The pthread_create() function conforms to ISO/IEC 9945-1:1996
      (``POSIX.1'').
 
-BSD                             March 15, 2014                             BSD
+BSD				March 15, 2014				   BSD
