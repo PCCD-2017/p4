@@ -1,4 +1,4 @@
 /*
- * Ejercicio 4 - Proceso escritores
+ * Ejercicio 5 - Proceso escritores
  */
 
