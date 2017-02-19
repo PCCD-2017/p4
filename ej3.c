@@ -4,9 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <signal.h>
 #include <pthread.h>
 
 void* Carvajal(void*);
@@ -39,7 +36,6 @@ int main(){
     pthread_join(iniesta_silva,NULL);
     printf("Aspas\n");
     pthread_exit(NULL);
-    return 0;
 }
 
 void* Carvajal(void* parameters){

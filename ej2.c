@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
     for(i = 0; i < argc - 1; i++){
         param[i].pos = i + 1;
         param[i].charAtPos = argv[i + 1];
-        if(pthread_create(&thread[i], NULL, (void*)imprimir_hilo, (void*)&param[i])){
+        if(pthread_create(&thread[i], NULL, (void*)imprimir_hilo, &param[i])){
             /*
              * The last parameter is important here: the actual parameter at the given position.
              */
@@ -29,7 +29,6 @@ int main(int argc, char* argv[]){
         }
     }
     pthread_exit(NULL);
-    return 0;
 }
 
 void* imprimir_hilo(struct parameters* param){
